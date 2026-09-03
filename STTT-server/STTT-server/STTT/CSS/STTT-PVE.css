@@ -1,0 +1,2154 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*主要颜色 拟态风格参数 阴影->凹陷*/
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --accent-color: #ec4899;
+    --card-background: #e0e5ec;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --x-color: #e74c3c;
+    --o-color: #3498db;
+    --x-won-color: rgba(231, 76, 60, 0.2);
+    --o-won-color: rgba(52, 152, 219, 0.2);
+    --active-glow: #63fda3;
+    --neumorphic-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.7),
+        -8px -8px 16px rgba(255, 255, 255, 0.7);
+    --neumorphic-shadow-inset: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+    --neumorphic-shadow-hover: 
+        12px 12px 24px rgba(163, 177, 198, 0.8),
+        -12px -12px 24px rgba(255, 255, 255, 0.9);
+    --neumorphic-shadow-inset-hover: 
+        inset 6px 6px 12px rgba(163, 177, 198, 0.5),
+        inset -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+/*全局样式 body使用拟态风格 居中*/
+body {
+    font-family: 'Noto Sans SC', "Microsoft YaHei", "微软雅黑", sans-serif;
+    background-image: url('../PIC/pic2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 100vh;
+    color: #6c7293;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(224, 229, 236, 0.3);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: -1;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+    background: var(--card-background);
+    border-radius: 30px;
+    box-shadow: var(--neumorphic-shadow);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.8s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 2px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-image: url('../PIC/pic2.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    z-index: -1;
+    filter: blur(10px) brightness(1.3);
+    opacity: 0.3;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+/*主标题 拟态风格 阴影->凹陷*/
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(163, 177, 198, 0.5),
+                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+    position: relative;
+    display: block;
+    padding: 15px 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+/**/*副标题 拟态风格 阴影->凹陷*/
+h3 {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--neumorphic-shadow-inset);
+    display: block;
+    text-shadow: 2px 2px 4px rgba(163, 177, 198, 0.5),
+                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+/**/*游戏布局 包含玩家信息和游戏板块 左右玩家 中间棋盘*/
+.game-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.player-info-left, .player-info-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-center {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/*ai思考模块*/
+.ai-status-info {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: var(--neumorphic-shadow-inset);
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 300px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.ai-thinking, .ai-depth {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+/*玩家信息*/
+.player-card {
+    width: 180px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 25px;
+    box-shadow: var(--neumorphic-shadow);
+    transition: var(--transition);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+}
+
+.player-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.player-card.active {
+    transform: translateY(-5px);
+    box-shadow: var(--neumorphic-shadow-hover);
+}
+
+.player-card.active::before {
+    transform: translateX(0);
+}
+
+.player-card.player-x {
+    border-left: 4px solid var(--x-color);
+}
+
+.player-card.player-o {
+    border-left: 4px solid var(--o-color);
+}
+
+.player-card.player-x.active {
+    box-shadow: var(--neumorphic-shadow-hover), 0 0 20px rgba(231, 76, 60, 0.4);
+}
+
+.player-card.player-o.active {
+    box-shadow: var(--neumorphic-shadow-hover), 0 0 20px rgba(52, 152, 219, 0.4);
+}
+
+.player-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.player-symbol {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--neumorphic-shadow-inset);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.player-card.player-x .player-symbol {
+    color: var(--x-color);
+}
+
+.player-card.player-o .player-symbol {
+    color: var(--o-color);
+}
+
+.player-status {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/*游戏信息模块 显示当前玩家和游戏状态*/
+.game-info {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--neumorphic-shadow-inset);
+    width: 100%;
+    max-width: 500px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+/*棋盘*/
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    width: 600px;
+    height: 600px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: var(--neumorphic-shadow-inset);
+    position: relative;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+}
+
+.small-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: var(--transition);
+    position: relative;
+    box-shadow: var(--neumorphic-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+}
+
+.small-board:hover {
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--neumorphic-shadow-hover);
+}
+
+.cell {
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    z-index: 2;
+    border-radius: 12px;
+    box-shadow: var(--neumorphic-shadow-inset);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: 1px solid rgba(163, 177, 198, 0.1);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(99, 102, 241, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    border-radius: 12px;
+}
+
+.cell:hover::before {
+    opacity: 1;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(0.95);
+    box-shadow: var(--neumorphic-shadow-inset-hover);
+}
+
+.cell.x {
+    color: var(--x-color);
+}
+
+.cell.o {
+    color: var(--o-color);
+}
+
+.small-board.won-by-x {
+    background: rgba(231, 76, 60, 0.2);
+    box-shadow: var(--neumorphic-shadow-hover), inset 3px 3px 6px rgba(163, 177, 198, 0.3);
+    border: none;
+}
+
+.small-board.won-by-o {
+    background: rgba(52, 152, 219, 0.2);
+    box-shadow: var(--neumorphic-shadow-hover), inset 3px 3px 6px rgba(163, 177, 198, 0.3);
+    border: none;
+}
+
+.small-board.won-by-x .cell {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.small-board.won-by-o .cell {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.small-board.won-by-x::before,
+.small-board.won-by-o::before {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 180px;
+    font-weight: bold;
+    z-index: 10;
+    opacity: 0.9;
+}
+
+.small-board.won-by-x::before {
+    content: 'X';
+    color: var(--x-color);
+    text-shadow: 0 0 8px rgba(163, 177, 198, 0.8), 0 0 12px rgba(163, 177, 198, 0.6);
+}
+
+.small-board.won-by-o::before {
+    content: 'O';
+    color: var(--o-color);
+    text-shadow: 0 0 8px rgba(163, 177, 198, 0.8), 0 0 12px rgba(163, 177, 198, 0.6);
+}
+
+.small-board.won-by-x::after,
+.small-board.won-by-o::after {
+    content: '';
+    position: absolute;
+    background-color: var(--x-won-color);
+    z-index: 3;
+    transition: all 0.5s ease;
+}
+
+.small-board.won-by-x::after {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.small-board.won-by-o::after {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.small-board.won-by-x.row-0::after,
+.small-board.won-by-o.row-0::after {
+    top: 16.66%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.small-board.won-by-x.row-1::after,
+.small-board.won-by-o.row-1::after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: translateY(-50%);
+}
+
+.small-board.won-by-x.row-2::after,
+.small-board.won-by-o.row-2::after {
+    bottom: 16.66%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.small-board.won-by-x.col-0::after,
+.small-board.won-by-o.col-0::after {
+    left: 16.66%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.small-board.won-by-x.col-1::after,
+.small-board.won-by-o.col-1::after {
+    left: 50%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+.small-board.won-by-x.col-2::after,
+.small-board.won-by-o.col-2::after {
+    right: 16.66%;
+    top: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.small-board.won-by-x.diag-1::after,
+.small-board.won-by-o.diag-1::after {
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 141%;
+    transform: rotate(45deg);
+    transform-origin: top left;
+}
+
+.small-board.won-by-x.diag-2::after,
+.small-board.won-by-o.diag-2::after {
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 141%;
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+
+.small-board.active {
+    box-shadow: 0 0 20px 5px var(--active-glow), var(--neumorphic-shadow-hover);
+    z-index: 1;
+}
+
+.game-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+/*重新开始按钮 回到菜单按钮*/
+#restart-button, #back-to-menu {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.5),
+                 -1px -1px 1px rgba(255, 255, 255, 0.8);
+}
+
+#restart-button::before, #back-to-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+#restart-button:hover::before, #back-to-menu:hover::before {
+    left: 100%;
+}
+
+#restart-button::after, #back-to-menu::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#restart-button:hover, #back-to-menu:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(224, 229, 236, 0.3) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+#restart-button:hover::after, #back-to-menu:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+#restart-button:active, #back-to-menu:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+        3px 3px 6px rgba(163, 177, 198, 0.3),
+        -3px -3px 6px rgba(255, 255, 255, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+#restart-button:active::after, #back-to-menu:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+}
+
+#back-to-menu {
+    background: #e0e5ec;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+}
+
+#back-to-menu:hover {
+    background: rgba(224, 229, 236, 0.3) !important;
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+}
+/*动画*/
+@keyframes liquidDropletHover {
+    0%, 100% {
+        border-radius: 150px;
+    }
+    20% {
+        border-radius: 140px 160px 150px 150px;
+        transform: translateY(-4px) scale(1.03) ;
+    }
+    40% {
+        border-radius: 160px 140px 150px 150px;
+        transform: translateY(-4px) scale(1.022) ;
+    }
+    60% {
+        border-radius: 150px 150px 140px 160px;
+        transform: translateY(-4px) scale(1.021) ;
+    }
+    80% {
+        border-radius: 150px 150px 160px 140px;
+        transform: translateY(-4px) scale(1.019) ;
+    }
+}
+
+@keyframes liquidDropletPress {
+    0% {
+        border-radius: 150px;
+        transform: translateY(-2px) scale(0.98);
+    }
+    50% {
+        border-radius: 130px 170px 140px 160px;
+        transform: translateY(-2px) scale(0.96) rotate(1deg);
+    }
+    100% {
+        border-radius: 150px;
+        transform: translateY(-2px) scale(0.98);
+    }
+}
+
+.ai-thinking, .ai-depth {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+#ai-thinking-status, #ai-depth-value {
+    font-weight: bold;
+}
+
+#ai-thinking-status.yes {
+    color: #f39c12;
+}
+
+#ai-thinking-status.no {
+    color: #2ecc71;
+}
+
+#ai-depth-value {
+    color: #9b59b6;
+}
+
+/* 游戏结束面板样式 */
+.game-result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.game-result-modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-background);
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--neumorphic-shadow);
+    animation: slideUp 0.4s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 2px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-image: url('../PIC/pic2.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    z-index: -1;
+    filter: blur(10px) brightness(1.3);
+    opacity: 0.3;
+    transition: all 0.6s ease;
+}
+
+#result-title {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    padding: 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 2px 2px 4px rgba(163, 177, 198, 0.5),
+                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+    width: fit-content;
+    display: inline-block;
+}
+/*结果信息*/
+#result-message {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+    width: fit-content;
+    display: inline-block;
+}
+/*弹窗的按钮*/
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#modal-restart-btn, #modal-close-btn {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.5),
+                 -1px -1px 1px rgba(255, 255, 255, 0.8);
+}
+
+#modal-restart-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 
+        8px 8px 16px rgba(99, 102, 241, 0.4),
+        -8px -8px 16px rgba(139, 92, 246, 0.4),
+        inset 1px 1px 2px rgba(99, 102, 241, 0.3),
+        inset -1px -1px 2px rgba(139, 92, 246, 0.3);
+}
+
+#modal-close-btn {
+    background: linear-gradient(135deg, #64748b, #475569);
+    box-shadow: 
+        8px 8px 16px rgba(100, 116, 139, 0.4),
+        -8px -8px 16px rgba(71, 85, 105, 0.4),
+        inset 1px 1px 2px rgba(100, 116, 139, 0.3),
+        inset -1px -1px 2px rgba(71, 85, 105, 0.3);
+}
+
+
+#modal-restart-btn::before, #modal-close-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+#modal-restart-btn:hover::before, #modal-close-btn:hover::before {
+    left: 100%;
+}
+
+#modal-restart-btn::after, #modal-close-btn::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#modal-restart-btn:hover, #modal-close-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(224, 229, 236, 0.3) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+#modal-restart-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 
+        12px 12px 24px rgba(99, 102, 241, 0.5),
+        -12px -12px 24px rgba(139, 92, 246, 0.5),
+        inset 2px 2px 4px rgba(99, 102, 241, 0.4),
+        inset -2px -2px 4px rgba(139, 92, 246, 0.4);
+}
+
+#modal-close-btn:hover {
+    background: linear-gradient(135deg, #475569, #334155);
+    box-shadow: 
+        12px 12px 24px rgba(71, 85, 105, 0.5),
+        -12px -12px 24px rgba(51, 65, 85, 0.5),
+        inset 2px 2px 4px rgba(71, 85, 105, 0.4),
+        inset -2px -2px 4px rgba(51, 65, 85, 0.4);
+}
+
+#modal-restart-btn:hover::after, #modal-close-btn:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+#modal-restart-btn:active, #modal-close-btn:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+        3px 3px 6px rgba(163, 177, 198, 0.3),
+        -3px -3px 6px rgba(255, 255, 255, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+#modal-restart-btn:active {
+    box-shadow: 
+        inset 4px 4px 8px rgba(99, 102, 241, 0.5),
+        inset -4px -4px 8px rgba(139, 92, 246, 0.9),
+        3px 3px 6px rgba(99, 102, 241, 0.3),
+        -3px -3px 6px rgba(139, 92, 246, 0.6);
+}
+
+#modal-close-btn:active {
+    box-shadow: 
+        inset 4px 4px 8px rgba(71, 85, 105, 0.5),
+        inset -4px -4px 8px rgba(51, 65, 85, 0.9),
+        3px 3px 6px rgba(71, 85, 105, 0.3),
+        -3px -3px 6px rgba(51, 65, 85, 0.6);
+}
+
+#modal-restart-btn:active::after, #modal-close-btn:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+}
+/*游戏结果弹窗*/
+.game-result-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.game-result-modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-background);
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--neumorphic-shadow);
+    animation: slideUp 0.4s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 2px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-image: url('../PIC/pic2.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    z-index: -1;
+    filter: blur(10px) brightness(1.3);
+    opacity: 0.3;
+    transition: all 0.6s ease;
+}
+
+#result-title {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+    padding: 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 2px 2px 4px rgba(163, 177, 198, 0.5),
+                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+}
+
+#result-message {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#modal-restart, #modal-back-menu {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.5),
+                 -1px -1px 1px rgba(255, 255, 255, 0.8);
+}
+
+#modal-restart::before, #modal-back-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+#modal-restart:hover::before, #modal-back-menu:hover::before {
+    left: 100%;
+}
+
+#modal-restart::after, #modal-back-menu::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#modal-restart:hover, #modal-back-menu:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(224, 229, 236, 0.3) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+#modal-restart:hover::after, #modal-back-menu:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+#modal-restart:active, #modal-back-menu:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+        3px 3px 6px rgba(163, 177, 198, 0.3),
+        -3px -3px 6px rgba(255, 255, 255, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+#modal-restart:active::after, #modal-back-menu:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+}
+
+#modal-restart {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 
+        8px 8px 16px rgba(99, 102, 241, 0.4),
+        -8px -8px 16px rgba(139, 92, 246, 0.4),
+        inset 1px 1px 2px rgba(99, 102, 241, 0.3),
+        inset -1px -1px 2px rgba(139, 92, 246, 0.3);
+}
+
+#modal-restart:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 
+        12px 12px 24px rgba(99, 102, 241, 0.5),
+        -12px -12px 24px rgba(139, 92, 246, 0.5),
+        inset 2px 2px 4px rgba(99, 102, 241, 0.4),
+        inset -2px -2px 4px rgba(139, 92, 246, 0.4);
+}
+
+#modal-back-menu {
+    background: linear-gradient(135deg, #64748b, #475569);
+    box-shadow: 
+        8px 8px 16px rgba(100, 116, 139, 0.4),
+        -8px -8px 16px rgba(71, 85, 105, 0.4),
+        inset 1px 1px 2px rgba(100, 116, 139, 0.3),
+        inset -1px -1px 2px rgba(71, 85, 105, 0.3);
+}
+
+#modal-back-menu:hover {
+    background: linear-gradient(135deg, #475569, #334155);
+    box-shadow: 
+        12px 12px 24px rgba(71, 85, 105, 0.5),
+        -12px -12px 24px rgba(51, 65, 85, 0.5),
+        inset 2px 2px 4px rgba(71, 85, 105, 0.4),
+        inset -2px -2px 4px rgba(51, 65, 85, 0.4);
+}
+/*弹窗动画*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    to {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+}
+/*响应式设计*/
+@media (max-width: 1200px) {
+    .game-board {
+        width: 500px;
+        height: 500px;
+    }
+    
+    .cell {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 992px) {
+    .game-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .player-info-left, .player-info-right {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+    
+    .game-board {
+        width: 450px;
+        height: 450px;
+    }
+    
+    .cell {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 15px;
+        border-radius: 25px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+        padding: 12px 24px;
+        border-radius: 18px;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+        padding: 8px 16px;
+        border-radius: 12px;
+    }
+    
+    .game-board {
+        width: 400px;
+        height: 400px;
+        border-radius: 25px;
+        padding: 15px;
+        grid-gap: 12px;
+    }
+    
+    .small-board {
+        border-radius: 18px;
+        padding: 8px;
+        grid-gap: 5px;
+    }
+    
+    .cell {
+        font-size: 22px;
+        border-radius: 10px;
+    }
+    
+    .player-card {
+        width: 160px;
+        padding: 20px;
+        border-radius: 22px;
+    }
+    
+    .player-name {
+        font-size: 1.2rem;
+        padding: 6px 12px;
+        border-radius: 12px;
+    }
+    
+    .player-symbol {
+        font-size: 2.5rem;
+        width: 70px;
+        height: 70px;
+        padding: 12px;
+        border-radius: 50%;
+    }
+    
+    #restart-button, #back-to-menu, #modal-restart, #modal-back-menu {
+        padding: 12px 24px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+        border-radius: 20px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        padding: 10px 20px;
+        border-radius: 15px;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+        padding: 6px 12px;
+        border-radius: 10px;
+    }
+    
+    .game-board {
+        width: 300px;
+        height: 300px;
+        border-radius: 20px;
+        padding: 10px;
+        grid-gap: 8px;
+    }
+    
+    .small-board {
+        border-radius: 15px;
+        padding: 6px;
+        grid-gap: 4px;
+    }
+    
+    .cell {
+        font-size: 18px;
+        border-radius: 8px;
+    }
+    
+    .player-card {
+        width: 130px;
+        padding: 15px;
+        border-radius: 18px;
+    }
+    
+    .player-name {
+        font-size: 1rem;
+        padding: 5px 10px;
+        border-radius: 10px;
+    }
+    
+    .player-symbol {
+        font-size: 2rem;
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+        border-radius: 50%;
+    }
+    
+    #restart-button, #back-to-menu, #modal-restart, #modal-back-menu {
+        padding: 10px 16px;
+        font-size: 14px;
+        border-radius: 14px;
+    }
+    
+    .current-turn-indicator, .ai-status-info {
+        padding: 8px 16px;
+        border-radius: 18px;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        padding: 25px;
+    }
+    
+    #result-title {
+        font-size: 1.6rem;
+        padding: 12px;
+        border-radius: 16px;
+    }
+    
+    #result-message {
+        font-size: 1rem;
+        padding: 12px;
+        border-radius: 12px;
+    }
+}
+
+/*难度选择按钮*/
+#select-difficulty, #modal-select-difficulty {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #22d3ee, #f0fdfa);
+    color: #0c4a6e;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(34, 211, 238, 0.4),
+        -8px -8px 16px rgba(240, 253, 250, 0.6),
+        inset 1px 1px 2px rgba(34, 211, 238, 0.3),
+        inset -1px -1px 2px rgba(240, 253, 250, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    outline: 1px solid rgba(34, 211, 238, 0.3);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8),
+                 -1px -1px 1px rgba(34, 211, 238, 0.2);
+}
+
+#select-difficulty::before, #modal-select-difficulty::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+#select-difficulty:hover::before, #modal-select-difficulty:hover::before {
+    left: 100%;
+}
+
+#select-difficulty::after, #modal-select-difficulty::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#select-difficulty:hover, #modal-select-difficulty:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: linear-gradient(135deg, #06b6d4, #ccfbf1) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    box-shadow: 
+        12px 12px 24px rgba(6, 182, 212, 0.5),
+        -12px -12px 24px rgba(240, 253, 250, 0.7),
+        inset 2px 2px 4px rgba(34, 211, 238, 0.4),
+        inset -2px -2px 4px rgba(240, 253, 250, 0.6);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+#select-difficulty:hover::after, #modal-select-difficulty:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+}
+
+#select-difficulty:active, #modal-select-difficulty:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(6, 182, 212, 0.5),
+        inset -4px -4px 8px rgba(240, 253, 250, 0.9),
+        3px 3px 6px rgba(6, 182, 212, 0.3),
+        -3px -3px 6px rgba(240, 253, 250, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+#select-difficulty:active::after, #modal-select-difficulty:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+#modal-select-difficulty {
+    background: linear-gradient(135deg, #22d3ee, #f0fdfa);
+    box-shadow: 
+        8px 8px 16px rgba(34, 211, 238, 0.4),
+        -8px -8px 16px rgba(240, 253, 250, 0.6),
+        inset 1px 1px 2px rgba(34, 211, 238, 0.3),
+        inset -1px -1px 2px rgba(240, 253, 250, 0.5);
+}
+
+#modal-select-difficulty:hover {
+    background: linear-gradient(135deg, #06b6d4, #ccfbf1);
+    box-shadow: 
+        12px 12px 24px rgba(6, 182, 212, 0.5),
+        -12px -12px 24px rgba(240, 253, 250, 0.7),
+        inset 2px 2px 4px rgba(34, 211, 238, 0.4),
+        inset -2px -2px 4px rgba(240, 253, 250, 0.6);
+}
+
+/* 响应式设计中添加新按钮的样式 */
+@media (max-width: 768px) {
+    #select-difficulty, #modal-select-difficulty {
+        padding: 12px 24px;
+        font-size: 14px;
+        border-radius: 16px;
+    }
+}
+
+
+/* 联机对战专用样式 */
+.mode-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mode-selection {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.mode-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 25px;
+}
+
+/* 主要游戏模式按钮 - 更长，占据容器一半 */
+#create-room-btn, #random-match-btn, #join-room-btn {
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    min-width: 300px;
+}
+
+/* 返回菜单按钮 - 与人机模式一致 */
+#back-to-home, #back-from-create-room, #back-from-join-room, #back-from-random-match, 
+#back-from-room-info, #back-from-waiting, #back-to-menu {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.5),
+                 -1px -1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* 其他按钮保持原有样式 */
+.neumorphic-btn {
+    padding: 1.2rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'ZCOOL KuaiLe', "Microsoft YaHei", sans-serif;
+    background: #e0e5ec;
+    color: #6c7293;
+    border: none;
+    border-radius: 150px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    letter-spacing: 1px;
+    box-shadow: 
+        8px 8px 16px rgba(163, 177, 198, 0.6),
+        -8px -8px 16px rgba(255, 255, 255, 0.8),
+        inset 1px 1px 2px rgba(163, 177, 198, 0.3),
+        inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+}
+
+.dark-mode .neumorphic-btn {
+    background: #2d3436;
+    color: #dfe6e9;
+    box-shadow: 
+        8px 8px 16px rgba(35, 40, 43, 0.6),
+        -8px -8px 16px rgba(55, 64, 67, 0.8),
+        inset 1px 1px 2px rgba(35, 40, 43, 0.3),
+        inset -1px -1px 2px rgba(55, 64, 67, 0.6);
+    border: 1px solid rgba(55, 64, 67, 0.3);
+    outline: 1px solid rgba(35, 40, 43, 0.2);
+    outline-offset: -1px;
+}
+
+.neumorphic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.neumorphic-btn:hover::before {
+    left: 100%;
+}
+
+.neumorphic-btn::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.neumorphic-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(224, 229, 236, 0.3) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    transform: translateY(-2px);
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+.dark-mode .neumorphic-btn:hover {
+    background: rgba(45, 52, 54, 0.3) !important;
+    box-shadow: 
+        12px 12px 24px rgba(35, 40, 43, 0.7),
+        -12px -12px 24px rgba(55, 64, 67, 0.9),
+        inset 2px 2px 4px rgba(35, 40, 43, 0.4),
+        inset -2px -2px 4px rgba(55, 64, 67, 0.7);
+}
+
+.neumorphic-btn:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+.neumorphic-btn:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+        3px 3px 6px rgba(163, 177, 198, 0.3),
+        -3px -3px 6px rgba(255, 255, 255, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+.dark-mode .neumorphic-btn:active {
+    box-shadow: 
+        inset 4px 4px 8px rgba(35, 40, 43, 0.5),
+        inset -4px -4px 8px rgba(55, 64, 67, 0.9),
+        3px 3px 6px rgba(35, 40, 43, 0.3),
+        -3px -3px 6px rgba(55, 64, 67, 0.6);
+}
+
+.neumorphic-btn:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+}
+
+/* 为主要游戏模式按钮添加悬停和激活效果 */
+#create-room-btn:hover, #random-match-btn:hover, #join-room-btn:hover,
+#back-to-home:hover, #back-from-create-room:hover, #back-from-join-room:hover, 
+#back-from-random-match:hover, #back-from-room-info:hover, #back-from-waiting:hover, 
+#back-to-menu:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(224, 229, 236, 0.3) !important;
+    backdrop-filter: blur(0.002px);
+    -webkit-backdrop-filter: blur(0.002px);
+    box-shadow: 
+        12px 12px 24px rgba(163, 177, 198, 0.7),
+        -12px -12px 24px rgba(255, 255, 255, 0.9),
+        inset 2px 2px 4px rgba(163, 177, 198, 0.4),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    animation: liquidDropletHover 0.8s ease-in-out;
+}
+
+#create-room-btn:active, #random-match-btn:active, #join-room-btn:active,
+#back-to-home:active, #back-from-create-room:active, #back-from-join-room:active, 
+#back-from-random-match:active, #back-from-room-info:active, #back-from-waiting:active, 
+#back-to-menu:active {
+    transform: translateY(-2px) scale(0.98);
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9),
+        3px 3px 6px rgba(163, 177, 198, 0.3),
+        -3px -3px 6px rgba(255, 255, 255, 0.6);
+    animation: liquidDropletPress 0.4s ease-in-out;
+}
+
+/* 为主要游戏模式按钮添加伪元素效果 */
+#create-room-btn::before, #random-match-btn::before, #join-room-btn::before,
+#back-to-home::before, #back-from-create-room::before, #back-from-join-room::before, 
+#back-from-random-match::before, #back-from-room-info::before, #back-from-waiting::before, 
+#back-to-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+#create-room-btn:hover::before, #random-match-btn:hover::before, #join-room-btn:hover::before,
+#back-to-home:hover::before, #back-from-create-room:hover::before, #back-from-join-room:hover::before, 
+#back-from-random-match:hover::before, #back-from-room-info:hover::before, #back-from-waiting:hover::before, 
+#back-to-menu:hover::before {
+    left: 100%;
+}
+
+#create-room-btn::after, #random-match-btn::after, #join-room-btn::after,
+#back-to-home::after, #back-from-create-room::after, #back-from-join-room::after, 
+#back-from-random-match::after, #back-from-room-info::after, #back-from-waiting::after, 
+#back-to-menu::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 18px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    border-radius: 12px;
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+#create-room-btn:hover::after, #random-match-btn:hover::after, #join-room-btn:hover::after,
+#back-to-home:hover::after, #back-from-create-room:hover::after, #back-from-join-room:hover::after, 
+#back-from-random-match:hover::after, #back-from-room-info:hover::after, #back-from-waiting:hover::after, 
+#back-to-menu:hover::after {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 22px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+}
+
+#create-room-btn:active::after, #random-match-btn:active::after, #join-room-btn:active::after,
+#back-to-home:active::after, #back-from-create-room:active::after, #back-from-join-room:active::after, 
+#back-from-random-match:active::after, #back-from-room-info:active::after, #back-from-waiting:active::after, 
+#back-to-menu:active::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 14px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.input-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+.input-group label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.neumorphic-input {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-family: 'Noto Sans SC', "Microsoft YaHei", sans-serif;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 
+        inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: 1px solid rgba(163, 177, 198, 0.2);
+    outline-offset: -1px;
+    width: 250px;
+    text-align: center;
+}
+
+.neumorphic-input:focus {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+        inset 6px 6px 12px rgba(163, 177, 198, 0.5),
+        inset -6px -6px 12px rgba(255, 255, 255, 0.9);
+}
+
+.neumorphic-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.status-message {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: var(--neumorphic-shadow-inset);
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+    margin: 20px 0;
+}
+
+.room-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.room-link-container {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.room-id {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    box-shadow: var(--neumorphic-shadow-inset);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 15px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.current-turn-indicator {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: var(--neumorphic-shadow-inset);
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 300px;
+    text-shadow: 1px 1px 2px rgba(163, 177, 198, 0.3),
+                 -1px -1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.turn-label, .current-player {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#current-player {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 联机对战响应式设计 */
+@media (max-width: 768px) {
+    .mode-buttons {
+        gap: 15px;
+    }
+    
+    .neumorphic-btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        min-width: 180px;
+    }
+    
+    .input-group {
+        gap: 12px;
+    }
+    
+    .neumorphic-input {
+        width: 200px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .room-link-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .status-message {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mode-buttons {
+        gap: 12px;
+    }
+    
+    .neumorphic-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+    
+    .input-group {
+        gap: 10px;
+    }
+    
+    .neumorphic-input {
+        width: 180px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .status-message {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,41 @@
+# Unity generated data
+**/Library/
+**/Temp/
+**/Logs/
+**/Obj/
+**/Build/
+**/Builds/
+**/UserSettings/
+**/MemoryCaptures/
+**/*.csproj
+**/*.sln
+**/*.userprefs
+
+# JavaScript and Python dependencies
+**/node_modules/
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/venv/
+
+# Large models and media assets
+**/*.safetensors
+**/*.ckpt
+**/*.pth
+**/*.onnx
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.zip
+**/*.7z
+**/*.rar
+**/*.exe
+**/*.tif
+**/*.tiff
+**/*.psd
+
+# Logs and local environment files
+**/*.log
+**/.env
+**/.env.*
+!.env.example

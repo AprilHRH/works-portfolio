@@ -1,0 +1,16 @@
+{
+  "name": "fabledevil",
+  "version": "2.0.0",
+  "description": "FableDevil — a clean little browser rage-platformer with 30 levels, dark/light themes, and obvious ragebait.",
+  "main": "game.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strategic Tic-Tac-Toe - 超级井字棋游戏，支持双人对战和人机对战，包含多种难度模式">
+    <meta name="author" content="HRH">
+    <meta name="robots" content="index, follow">
+    
+    <title>Strategic Tic-Tac-Toe - 超级井字棋</title>
+    <link rel="stylesheet" href="../CSS/STTT-start.css">
+
+</head>
+
+<body>
+    <div class="rules-section">
+        <button id="rules-button" class="neumorphic-rules-btn">游戏规则</button>
+        <button id="theme-btn" class="neumorphic-theme-btn">🌙</button>
+    </div>
+    
+    <div class="container">
+        <div class="neumorphic-panel">
+            <div class="panel-background"></div>
+            <div class="panel-background2"></div>
+            <div class="panel-content">
+                <h1 class="panel-title">Strategic Tic-Tac-Toe</h1>
+                <h2 class="panel-subtitle">战略圈圈画叉叉</h2>
+                
+                <div class="mode-selection">
+                    <h3 class="selection-title">选择游戏模式</h3>
+                    <div class="mode-buttons">
+                        <button id="two-player-mode" class="neumorphic-btn btn-primary">👥 双人模式</button>
+                        <button id="ai-mode" class="neumorphic-btn btn-primary">🤖 人机模式</button>
+                    </div>
+                </div>
+                
+                <div id="two-player-options" class="sub-options hidden">
+                    <h3 class="selection-title">选择对战方式</h3>
+                    <div class="option-buttons">
+                        <button id="local-play" class="neumorphic-btn btn-success">🏠 本地对战</button>
+                        <button id="online-play" class="neumorphic-btn btn-info">🌐 联机对战</button>
+                    </div>
+                    <button id="back-from-two-player" class="neumorphic-btn btn-back">↩️ 返回</button>
+                </div>
+                
+                <div id="ai-options" class="sub-options hidden">
+                    <h3 class="selection-title">选择难度</h3>
+                    <div class="option-buttons">
+                        <button id="easy-ai" class="neumorphic-btn btn-easy">😊 简单</button>
+                        <button id="medium-ai" class="neumorphic-btn btn-medium">😎 进阶</button>
+                        <button id="hard-ai" class="neumorphic-btn btn-hard">🔥 困难</button>
+                    </div>
+                    <button id="back-from-ai" class="neumorphic-btn btn-back">↩️ 返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="rules-modal" class="neumorphic-modal">
+        <div class="neumorphic-modal-panel">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">🎮 超级井字棋游戏规则</h2>
+                    <button id="close-rules" class="neumorphic-close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="rule-section">
+                        <h3 class="rule-title">🎯 游戏目标</h3>
+                        <p class="rule-text">在9×9的大棋盘上，率先赢得三个小棋盘连成一线的玩家获胜！</p>
+                    </div>
+                    
+                    <div class="rule-section">
+                        <h3 class="rule-title">📋 基本规则</h3>
+                        <ul class="rule-list">
+                            <li><strong>棋盘结构：</strong>游戏在9×9的大棋盘上进行，由9个3×3的小棋盘组成</li>
+                            <li><strong>轮流下棋：</strong>轮流在空格中放置自己的符号 X 或 O</li>
+                            <li><strong>小棋盘胜利：</strong>在任意3×3小棋盘中，先将三个符号连成一线（横、竖、斜）的玩家赢得该小棋盘</li>
+                            <li><strong>最终胜利：</strong>率先赢得三个小棋盘且这些小棋盘在大棋盘中连成一线的玩家获得最终胜利</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rule-section">
+                        <h3 class="rule-title">🔄 关键机制 - 位置决定下个棋盘</h3>
+                        <p class="rule-text"><strong>最重要的规则：</strong>你在某个小棋盘中的落子位置，决定了对手必须在哪个小棋盘中下棋！</p>
+                        <ul class="rule-list">
+                            <li>如果你在小棋盘的<strong>左上角</strong>落子，对手必须在<strong>左上角</strong>的小棋盘中下棋</li>
+                            <li>如果你在小棋盘的<strong>中间</strong>落子，对手必须在<strong>中间</strong>的小棋盘中下棋</li>
+                            <li>如果你在小棋盘的<strong>右下角</strong>落子，对手必须在<strong>右下角</strong>的小棋盘中下棋</li>
+                        </ul>
+                        <div class="neumorphic-example-box">
+                            <p><strong>举例说明：</strong></p>
+                            <p>你在第2个小棋盘的第5个位置（中心）落子，那么对手就必须在第5个小棋盘中选择任意空格落子。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-section">
+                        <h3 class="rule-title">⚡ 特殊情况</h3>
+                        <ul class="rule-list">
+                            <li><strong>目标棋盘已满：</strong>如果指定的目标小棋盘已经没有空格，玩家可以在任意未完成的小棋盘中自由选择</li>
+                            <li><strong>目标棋盘已决胜负：</strong>如果指定的目标小棋盘已经有胜负结果，玩家可以在任意未完成的小棋盘中自由选择</li>
+                            <li><strong>平局处理：</strong>如果所有小棋盘都已完成但无人达到最终胜利条件，游戏为平局</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rule-section">
+                        <h3 class="rule-title">🏆 获胜条件</h3>
+                        <p class="rule-text">在大棋盘中，赢得的小棋盘连成以下任意一种形式即可获胜：</p>
+                        <ul class="rule-list">
+                            <li>横线：同一行的三个小棋盘</li>
+                            <li>竖线：同一列的三个小棋盘</li>
+                            <li>对角线：两条对角线上的三个小棋盘</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rule-section">
+                        <h3 class="rule-title">💡 策略提示</h3>
+                        <ul class="rule-list">
+                            <li><strong>进攻与防守：</strong>既要考虑自己赢得小棋盘，也要阻止对手赢得小棋盘</li>
+                            <li><strong>控制关键位置：</strong>尽量将对手引导到对你有利的小棋盘中</li>
+                            <li><strong>预判多步：</strong>提前思考对手的下一步和你的应对策略</li>
+                            <li><strong>创造机会：</strong>在多个小棋盘中同时制造威胁，让对手难以防守</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../JS/STTT-start.js"></script>
+</body>
+</html>
